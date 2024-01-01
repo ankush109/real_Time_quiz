@@ -81,6 +81,7 @@ export const UserLoggedin = ({name, code}) => {
             setUserId(userId);
 
             if (state.leaderboard) {
+                console.log(state.leaderboard)
                 setLeaderboard(state.leaderboard)
             }
 
@@ -114,7 +115,7 @@ export const UserLoggedin = ({name, code}) => {
     }
 
     if (currentState === "leaderboard") {
-        return <LeaderBoard leaderboardData={leaderboard.map((x) => ({
+        return <LeaderBoard leaderboardData={leaderboard?.map((x) => ({
             points: x.points,
             username: x.name,
             image: x.image

@@ -41,9 +41,9 @@ export class UserManager {
       const submission = data.submission;
       const roomId = data.roomId;
       if (
-        submission != 0 ||
-        submission != 1 ||
-        submission != 2 ||
+        submission != 0 &&
+        submission != 1 &&
+        submission != 2 &&
         submission != 3
       ) {
         console.error("issue while getting input " + submission);

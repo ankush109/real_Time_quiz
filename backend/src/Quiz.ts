@@ -94,7 +94,7 @@ debug(){
     this.currentState="question"
     problem.startTime = new Date().getTime();
     problem.submissions = [];
-    IoManager.getInstance().emit("problem", {
+    IoManager.getInstance().to(this.roomId).emit("problem", {
       problem,
     });
     setTimeout(() => {
