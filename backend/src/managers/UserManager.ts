@@ -7,7 +7,7 @@ export class UserManager {
     this.quizManager = new QuizManager();
   }
   addUser(socket: Socket) {
-    this.createHandler( socket);
+    this.createHandler(socket);
   }
   private createHandler( socket: Socket) {
     socket.on("join", (data) => {
@@ -23,7 +23,6 @@ export class UserManager {
       if (data.password !== ADMIN_PASSWORD) {
         return;
       }
-
       socket.on("createQuiz", (data) => {
         console.log("creating quiz")
         this.quizManager.addQuiz(data.roomId);
