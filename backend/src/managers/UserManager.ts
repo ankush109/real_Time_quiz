@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
 import { QuizManager } from "./QuizManager";
+import { IoManager } from "./IoManager";
 const ADMIN_PASSWORD = "ankush";
 export class UserManager {
   private quizManager;
@@ -14,6 +15,16 @@ export class UserManager {
     // for the user
     socket.on("join", (data) => {
       const userId = this.quizManager.addUser(data.roomId, data.name);
+      console.log(data.name+" has joined the room");
+
+      // Broadcast the user's name to all users in the room
+      const allUsers = this.quizManager.getAllUsers(data.roomId);
+      console.log(allUsers,"all the users in the room")
+    IoManager.getInstance().to(data.roomId).emit("userJoined", {
+      name: data.name,
+      users: allUsers, 
+    });
+  
       socket.emit("init", {
         userId,
         state: this.quizManager.getCurrentState(data.roomId),

@@ -1,6 +1,6 @@
 import { AllowedSubmissions, Quiz } from "../Quiz";
 import { IoManager } from "./IoManager";
-
+import { UserManager } from "./UserManager"
 let globalProblemId = 0;
 export class QuizManager {
   private quizes: Quiz[];
@@ -51,6 +51,12 @@ export class QuizManager {
   }
   getQuiz(roomId: string) {
     return this.quizes.find(x => x.roomId === roomId) ?? null;
+  }
+  getAllUsers(roomId: string) {
+    console.log(roomId)
+    const quiz = this.getQuiz(roomId);
+    console.log(quiz)
+    return quiz ? quiz.getAllUsers() : [];
   }
   submit(
     userId: string,

@@ -31,7 +31,7 @@ export class Quiz {
   private hasStarted: boolean;
   private problems: Problem[];
   private activeProblems: number;
-  private users: User[];
+  public users: User[];
   private currentState: "leaderboard" | "question" | "not_started" | "ended";
   constructor(roomId: string) {
     this.roomId = roomId;
@@ -57,7 +57,7 @@ debug(){
   console.log(this.currentState)
   console.log(this.activeProblems,"problem count")
 }
-  start() {
+start() {
     this.hasStarted = true;
     this.setActiveProblem(this.problems[0]);
   }
@@ -72,13 +72,19 @@ debug(){
   }
   addUser(name: string) {
     const id = this.genRandonstring(7);
+   
     this.users.push({
       id,
       name,
       points: 0,
     });
+   
     return id;
   }
+getAllUsers(){
+  console.log(this.users,"users")
+  return this.users;
+}
   next() {
     this.activeProblems++;
     const problem = this.problems[this.activeProblems];
