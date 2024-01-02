@@ -4,8 +4,8 @@ import Card from "./Card";
 export function LeaderBoard({ leaderboardData }) {
  
     return (
-        <div className="bg-opacity-20 bg-white backdrop-blur-5 border border-opacity-30 border-solid border-white p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl text-center my-4 text-white">
+        <div className="bg-opacity-20 bg-gray-400 backdrop-blur-5 m-20 border border-opacity-30 border-solid border-white p-6 rounded-lg shadow-md">
+            <h1 className="text-2xl  text-center my-4 text-black">
                 Leaderboard Results 🚀
             </h1>
             <div className="">

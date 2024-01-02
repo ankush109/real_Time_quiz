@@ -4,6 +4,7 @@ import { Toaster, toast, useToasterStore } from "react-hot-toast";
 import Admin from './components/admin';
 import { User } from './components/User';
 import { useEffect } from 'react';
+import Navbar from './components/Navbar';
 
 function App() {
   const MAX_TOAST_LIMIT = 1;
@@ -20,7 +21,9 @@ function App() {
       position="bottom-right"
       reverseOrder={false}
       toastOptions={{ duration: 6000 }} /><BrowserRouter>
+           <Navbar/>
         <Routes>
+       
           <Route path="/admin" element={<Admin />} />
           <Route path="/user" element={<User />} />
         </Routes>

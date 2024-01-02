@@ -47,33 +47,37 @@ function ChatRoom({ socket, roomId,name }) {
   };
 
   return (
-    <div className="max-w-md overflow-none mx-auto p-5 w-1/4">
+  <div>
+      <div className="max-w-md mx-10  bg-stone-500  rounded-xl my-20 overflow-none p-5 ">
       <div className="mb-4">
-        <label className="block text-white text-sm font-bold mb-2">Message:</label>
+        <label className="block text-white text-sm font-bold mb-2">Chat with Other people in the room</label>
+        <div className='flex gap-2'>
         <input
           type="text"
           value={message}
           onChange={handleInputChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Type your message..."
         />
-      </div>
-
-      
-
-      <button
+         <button
         onClick={handleSendMessage}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
         Send
       </button>
+        </div>
+      </div>
+
+      
+
+     
       <div className="mb-4">
   <label className="block text-white text-sm font-bold mb-2">Messages:</label>
-  <div className="text-white ">
+  <div className="text-white h-[300px] overflow-x-auto">
   {messages?.map((msg, index) => (
     <div className="flex gap-2 message-container m-3" key={index}>
       <div className="message-content bg-re p-2 rounded-lg">
-        <span className="text-gray-400">@{
+        <span className="text-white font-bold">@{
             msg.mess?.name===name? "you" :msg.mess?.name
         }</span>
       </div>
@@ -87,6 +91,7 @@ function ChatRoom({ socket, roomId,name }) {
 </div>
 
     </div>
+  </div>
   );
 }
 

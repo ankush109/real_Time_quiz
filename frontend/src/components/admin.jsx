@@ -21,12 +21,21 @@ function Admin() {
 
   if (!quizid) {
     return (
-      <div className="max-w-md mx-auto p-4">
+      <div>
+        <div className="bg-gray-100 flex flex-col border-black items-center justify-center h-screen">
+        <div className="mb-8">
+              <h1 className="text-2xl font-semibold mb-2 text-slate-600">
+               Welcome Admin
+              </h1>
+              <p className="text-gray-600">
+               Create your Quiz Room 
+              </p>
+            </div>
         <input
           type="text"
           value={roomId}
           onChange={(e) => setRoomId(e.target.value)}
-          className="border rounded px-2 py-1 w-full mb-2"
+          className="text-center w-64 p-2 border-2 border-blue-600 rounded-lg shadow-sm focus:outline-none focus:border-blue-800 mb-3"
           placeholder="Enter Room ID"
         />
         <button
@@ -36,10 +45,11 @@ function Admin() {
             });
             setQuizId(roomId);
           }}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-blue-600 text-white w-64 py-2 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-opacity-50"
         >
           Create Room
         </button>
+      </div>
       </div>
     );
   }

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { CurrentQuestion } from "./CurrentQuestion";
 import { LeaderBoard } from "./LeaderBoard";
-import { Quiz } from "./Quiz";
+// import { Quiz } from "./Quiz";
+import {Quizop} from "./Quizop"
 import Alluser from "./Alluser";
 import { toast } from "react-hot-toast";
 import ChatRoom from "./ChatRoom";
@@ -126,7 +127,7 @@ export const UserLoggedin = ({ name, code }) => {
     return (
     <div className="flex">
       <div className="w-full"> 
-      <div className="text-center bg-white text-red-600 font-bold p-4 text-2xl">Quiz has not began Yet</div>
+      <div className="text-center bg-gray-400 text-black-600 font-bold p-4 text-2xl">Quiz has not began Yet</div>
         {socket && roomId && <ChatRoom socket={socket} name={name} roomId={roomId} />}
 
       </div>
@@ -138,18 +139,17 @@ export const UserLoggedin = ({ name, code }) => {
   if (currentState === "question") {
     console.log(currentQuestion, "curr");
     return (
-      <Quiz
-        roomId={roomId}
-        userId={userId}
-        problemId={currentQuestion.id}
-        quizData={{
-          title: currentQuestion.description,
-          options: currentQuestion.options,
-        }}
-        socket={socket}
-      />
+     <Quizop     roomId={roomId}
+     userId={userId}
+     problemId={currentQuestion.id}
+     quizData={{
+       title: currentQuestion.description,
+       options: currentQuestion.options,
+     }}
+     socket={socket}/>
     );
-  }
+  }    
+
 
   if (currentState === "leaderboard") {
     return (
