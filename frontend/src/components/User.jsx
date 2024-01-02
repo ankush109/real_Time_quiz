@@ -3,7 +3,9 @@ import { io } from "socket.io-client";
 import { CurrentQuestion } from "./CurrentQuestion";
 import { LeaderBoard } from "./LeaderBoard";
 import { Quiz } from "./Quiz";
-
+import Alluser from "./Alluser";
+import { toast, ToastContainer } from "react-toastify";
+import ChatRoom from "./ChatRoom";
 export const User = () => {
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -64,6 +66,7 @@ export const UserLoggedin = ({ name, code }) => {
   const [socket, setSocket] = useState(null);
   const roomId = code;
   const [currentState, setCurrentState] = useState("not_started");
+  const [availableUsers,setAvailableUsers]=useState([])
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]);
   const [userId, setUserId] = useState("");
@@ -79,8 +82,12 @@ export const UserLoggedin = ({ name, code }) => {
       });
     });
     socket.on("userJoined", (data) => {
+      toast.success(`${data.name} has joined`)
+      setAvailableUsers(data.users)
       console.log("User joined: " + data.name);
-      console.log("Total users: " + data.users.join(', '));
+      data.users.map((x)=>{
+        console.log(x.name)
+      })
     });
     
     socket.on("getallusers", (data) => {
@@ -135,17 +142,25 @@ export const UserLoggedin = ({ name, code }) => {
   }
 
   if (currentState === "leaderboard") {
-    //  console.log({leaderboard},"leaderboard")
     return (
-      <LeaderBoard
-        leaderboardData={leaderboard?.map((x) => ({
-          points: x.points,
-          name: x.name,
-          image: x.image,
-        }))}
-      />
+      <div style={{ display: 'flex' }}>
+        <ChatRoom socket={socket}name={name} roomId={roomId}/>
+        {/* <div style={{ flex: 1, marginRight: '10px' }}>
+          <Alluser users={availableUsers} />
+        </div> */}
+        <div style={{ flex: 4 }}>
+          <LeaderBoard
+            leaderboardData={leaderboard?.map((x) => ({
+              points: x.points,
+              name: x.name,
+              image: x.image,
+            }))}
+          />
+        </div>
+      </div>
     );
   }
+  
 
   return (
     <div>
