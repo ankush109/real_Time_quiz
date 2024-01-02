@@ -9,7 +9,9 @@ export class UserManager {
   addUser(socket: Socket) {
     this.createHandler(socket);
   }
-  private createHandler( socket: Socket) {
+  private createHandler(socket: Socket) {
+    // establishes a socket connection betweeen the client and the server
+    // for the user
     socket.on("join", (data) => {
       const userId = this.quizManager.addUser(data.roomId, data.name);
       socket.emit("init", {
@@ -18,6 +20,7 @@ export class UserManager {
       });
       socket.join(data.roomId);
     });
+    // for the admin controls
     socket.on("join_admin", (data) => {
       console.log("join admin called")
       if (data.password !== ADMIN_PASSWORD) {
