@@ -33,6 +33,9 @@ function ChatRoom({ socket, roomId,name }) {
       // Prevent sending empty messages
       return;
     }
+    const m = {name:"you",message:message}
+    setMessage((prev)=>[...prev,m])
+    console.log(messages,"mess")
     socket.emit("send-message", {
       message,
       name
@@ -44,7 +47,7 @@ function ChatRoom({ socket, roomId,name }) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md overflow-none mx-auto p-5 w-1/4">
       <div className="mb-4">
         <label className="block text-white text-sm font-bold mb-2">Message:</label>
         <input
@@ -68,9 +71,11 @@ function ChatRoom({ socket, roomId,name }) {
   <label className="block text-white text-sm font-bold mb-2">Messages:</label>
   <div className="text-white ">
   {messages?.map((msg, index) => (
-    <div className="flex gap-2 message-container m-4" key={index}>
+    <div className="flex gap-2 message-container m-3" key={index}>
       <div className="message-content bg-re p-2 rounded-lg">
-        <span className="text-gray-400">@{msg.mess?.name}</span>
+        <span className="text-gray-400">@{
+            msg.mess?.name===name? "you" :msg.mess?.name
+        }</span>
       </div>
       <div className="sender-name bg-white w-full p-2 text-blue-500 font-bold rounded-lg">
         {msg.mess?.message}

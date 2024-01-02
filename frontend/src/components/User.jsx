@@ -4,7 +4,7 @@ import { CurrentQuestion } from "./CurrentQuestion";
 import { LeaderBoard } from "./LeaderBoard";
 import { Quiz } from "./Quiz";
 import Alluser from "./Alluser";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-hot-toast";
 import ChatRoom from "./ChatRoom";
 export const User = () => {
   const [name, setName] = useState("");
@@ -82,7 +82,7 @@ export const UserLoggedin = ({ name, code }) => {
       });
     });
     socket.on("userJoined", (data) => {
-      toast.success(`${data.name} has joined`)
+      toast.success(`${data.name} has joined the room `)
       setAvailableUsers(data.users)
       console.log("User joined: " + data.name);
       data.users.map((x)=>{
@@ -123,7 +123,17 @@ export const UserLoggedin = ({ name, code }) => {
   }, [currentState]);
 
   if (currentState === "not_started") {
-    return <div>This quiz hasnt started yet</div>;
+    return (
+    <div className="flex">
+      <div className="w-full"> 
+      <div className="text-center bg-white text-red-600 font-bold p-4 text-2xl">Quiz has not began Yet</div>
+        {socket && roomId && <ChatRoom socket={socket} name={name} roomId={roomId} />}
+
+      </div>
+    
+      
+      </div>
+    )
   }
   if (currentState === "question") {
     console.log(currentQuestion, "curr");

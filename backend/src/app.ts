@@ -14,7 +14,7 @@ io.attach(server);
 io.on("connection", (socket) => {
   userManager.addUser(socket);
    socket.on("send-message",(mess,name)=>{
-    socket.broadcast.emit("receive-message",{mess,name})
+    IoManager.getInstance().emit("receive-message",{mess,name})
     console.log(mess)
    })
 });
