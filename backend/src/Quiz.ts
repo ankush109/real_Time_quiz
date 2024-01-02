@@ -28,7 +28,7 @@ interface User {
 }
 export class Quiz {
   public roomId: string;
-  public hasStarted: boolean;
+  private hasStarted: boolean;
   private problems: Problem[];
   private activeProblems: number;
   private users: User[];
@@ -55,7 +55,7 @@ debug(){
   console.log(JSON.stringify(this.problems))
   console.log(this.users)
   console.log(this.currentState)
-  console.log(this.activeProblems)
+  console.log(this.activeProblems,"problem count")
 }
   start() {
     this.hasStarted = true;
@@ -99,7 +99,7 @@ debug(){
     });
     setTimeout(() => {
       this.sendLeaderBoard();
-    }, PROBLEM_TIME_S*1000);
+    },PROBLEM_TIME_S*1000);
   }
   submit(
     userId: string,
@@ -138,6 +138,7 @@ debug(){
     IoManager.getInstance().to(this.roomId).emit("leaderboard", {
       leaderBoard,
     });
+    console.log(leaderBoard,"leaderboard")
   }
   getCurrentState() {
     if (this.currentState === "not_started") {
@@ -164,11 +165,9 @@ debug(){
         problem,
       };
     }
-    return null;
+   
   }
   getLeaderBoard() {
-    return this.users
-      .sort((a, b) => (a.points < b.points ? 1 : -1))
-      .slice(0, 20);
+    return this.users.sort((a, b) => a.points < b.points ? 1 : -1).slice(0, 20);
   }
 }

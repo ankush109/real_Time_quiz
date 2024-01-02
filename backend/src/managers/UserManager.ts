@@ -50,7 +50,7 @@ export class UserManager {
       }
       console.log("sub,itting")
       console.log(roomId);
-      this.quizManager.submit(userId, data.roomId, problemId, submission);
+      this.quizManager.submit(userId, roomId, problemId, submission);
     });
   }
 }

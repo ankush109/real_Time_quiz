@@ -68,7 +68,6 @@ export const UserLoggedin = ({name, code}) => {
     useEffect(() => {
         const socket = io("http://localhost:3000");
         setSocket(socket)
-
         socket.on("connect", () => {
             console.log(socket.id);
             socket.emit("join", {
@@ -81,11 +80,14 @@ export const UserLoggedin = ({name, code}) => {
             setUserId(userId);
 
             if (state.leaderboard) {
+                console.log("leaderboarding setted")
                 console.log(state.leaderboard)
                 setLeaderboard(state.leaderboard)
+                console.log("leaderboarding setted")
             }
 
             if (state.problem) {
+                console.log("problem setted")
                 setCurrentQuestion(state.problem);
             }
 
@@ -93,14 +95,16 @@ export const UserLoggedin = ({name, code}) => {
         });
 
         socket.on("leaderboard", (data) => {
+            console.log("fetchign leaderboard")
             setCurrentState("leaderboard");
             setLeaderboard(data.leaderboard);
         });
         socket.on("problem", (data) => {
+            console.log("fetching next problem")
             setCurrentState("question");
             setCurrentQuestion(data.problem);
         })
-    }, []);
+    },[currentState]);
 
     if (currentState === "not_started") {
         return <div>
@@ -108,6 +112,7 @@ export const UserLoggedin = ({name, code}) => {
         </div>
     }
     if (currentState === "question") {
+        console.log(currentQuestion,"curr")
         return <Quiz roomId={roomId} userId={userId} problemId={currentQuestion.id} quizData={{
             title: currentQuestion.description,
             options: currentQuestion.options
@@ -115,11 +120,13 @@ export const UserLoggedin = ({name, code}) => {
     }
 
     if (currentState === "leaderboard") {
-        return <LeaderBoard leaderboardData={leaderboard?.map((x) => ({
+      //  console.log({leaderboard},"leaderboard")
+        return  <LeaderBoard leaderboardData={leaderboard?.map((x) => ({
             points: x.points,
-            username: x.name,
+            name: x.name,
             image: x.image
         }))} />
+        
     }
 
     return <div>
